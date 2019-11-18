@@ -18,6 +18,14 @@ const String = new Record({
 let tableHeader = ''
 
 const RULES = [
+  // this adds a user mention serialization rule
+  {
+    serialize(obj) {
+      if (obj.type === 'userMention') {
+        return `@{${obj.data.get('userID')}}`;
+      }
+    }
+  },
   {
     serialize(obj, children) {
       if (obj.object === 'string') {
