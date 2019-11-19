@@ -709,7 +709,7 @@ InlineLexer.prototype.parse = function(src, trail = []) {
     // userMention
     if ((cap = this.rules.userMention.exec(src))) {
       src = src.substring(cap[0].length)
-      out.push(this.renderer.userMention(cap[0]))
+      out.push(this.renderer.userMention(cap[1]))
     }
 
     // text
