@@ -22,7 +22,7 @@ const RULES = [
   {
     serialize(obj) {
       if (obj.type === 'userMention') {
-        return `@{${obj.data.get('userID')}}`;
+        return `@{${obj.data.get('userID')}}`
       }
     }
   },
@@ -367,8 +367,8 @@ class Markdown {
    * @param {String} markdown
    * @return {State} state
    */
-  deserialize(markdown) {
-    const document = parser.parse(markdown)
+  deserialize(markdown, context) {
+    const document = parser.parse(markdown).bind(context)
 
     return Value.fromJSON({document})
   }

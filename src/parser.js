@@ -1046,12 +1046,13 @@ Renderer.prototype.userMention = function(childNode) {
     data: {
       userId: childNode
     },
-    text: ' ',
+    object: 'inline',
     type: 'userMention',
     nodes: [
       {
         object: 'text',
-        text: childNode + 'test!'
+        text: childNode + 'test!',
+        marks: [{type: 'bold'}]
       }
     ]
   }
