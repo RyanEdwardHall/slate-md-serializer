@@ -368,7 +368,7 @@ class Markdown {
    * @return {State} state
    */
   deserialize(markdown, context) {
-    const document = parser.parse(markdown).bind(context)
+    const document = parser.parse(markdown, context)
 
     return Value.fromJSON({document})
   }
