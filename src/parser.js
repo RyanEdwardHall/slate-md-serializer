@@ -487,7 +487,7 @@ const inline = {
   del: noop,
   ins: noop,
   text: /^[\s\S]+?(?=[\\<!\[_*#`]| {2,}\n|@{[\w]{24}}|$)/,
-  userMention: /^@{[\w]{24}}/
+  userMention: /^@{([\w]{24})}/
 }
 
 inline._inside = /(?:\[[^\]]*\]|[^\[\]]|\](?=[^\[]*\]))*/
@@ -1040,18 +1040,18 @@ Renderer.prototype.image = function(href, title, alt) {
   }
 }
 
-Renderer.prototype.userMention = function(childNode) {
+Renderer.prototype.userMention = function(userID) {
   return {
     isVoid: true,
     data: {
-      userId: childNode
+      userID
     },
     object: 'inline',
     type: 'userMention',
     nodes: [
       {
         object: 'text',
-        text: childNode + 'test!',
+        text: this.options.usersContext[userID],
         marks: [{type: 'bold'}]
       }
     ]
