@@ -78,7 +78,7 @@ const block = {
   list: /^( *)(bull) [\s\S]+?(?:hr|def|\n{2,}(?! )(?!\1bull )\n*|\s*$)/,
   def: /^ *\[([^\]]+)\]: *<?([^\s>]+)>?(?: +["(]([^\n]+)[")])? *(?:\n+|$)/,
   paragraph: /^((?:[^\n]+\n?(?!hr|heading|lheading|blockquote|def))+)(?:\n+|$)/,
-  text: /^[^\n]+/,
+  text: /^[^\n]+/
 }
 
 block.bullet = /(?:[*+-]|\d+\.|\[[x\s]\])/
@@ -486,7 +486,7 @@ const inline = {
   br: /^ {2,}\n(?!\s*$)/,
   del: noop,
   ins: noop,
-  text: /^[\s\S]+?(?=[\\<!\[_*#`]| {2,}\n|$)/,
+  text: /^[\s\S]+?(?=[\\<!\[_*#`]| {2,}\n|@{[\w]{24}}|$)/,
   userMention: /^@{[\w]{24}}/
 }
 
@@ -709,7 +709,7 @@ InlineLexer.prototype.parse = function(src, trail = []) {
     // userMention
     if ((cap = this.rules.userMention.exec(src))) {
       src = src.substring(cap[0].length)
-      out.push(this.renderer.userMention(cap[1]))
+      out.push(this.renderer.userMention(cap[0]))
     }
 
     // text
@@ -1042,9 +1042,18 @@ Renderer.prototype.image = function(href, title, alt) {
 
 Renderer.prototype.userMention = function(childNode) {
   return {
-    data : {
-      userId : childNode
-    }
+    isVoid: true,
+    data: {
+      userId: childNode
+    },
+    text: ' ',
+    type: 'userMention',
+    nodes: [
+      {
+        object: 'text',
+        text: childNode + 'test!'
+      }
+    ]
   }
 }
 
