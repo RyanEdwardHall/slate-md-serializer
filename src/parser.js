@@ -1051,7 +1051,7 @@ Renderer.prototype.userMention = function(userID) {
     nodes: [
       {
         object: 'text',
-        text: this.options.usersContext[userID],
+        text: `@${this.options.usersContext[userID]}`,
         marks: [{type: 'bold'}]
       }
     ]
